@@ -1,0 +1,208 @@
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    overflow: hidden;
+}
+li{
+    list-style-type: none;
+}
+.logo{
+    width: 100px;
+}
+a{
+    text-decoration: none;
+}
+.biggest-box {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+.box-80vh{
+    display: flex;
+    align-items: center;
+    justify-content: start; 
+    height: 55vh;  
+    margin-top: 30px;
+}
+.base{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+
+ 
+}
+p{
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.conetst{
+ height: 55vh;
+ display: flex;
+ align-items: center;
+ justify-content: start; 
+
+}
+
+.first-page{
+    height: 100vh;
+    scroll-snap-align: start;
+    margin: 20px 100px;
+}
+.second-page{
+    margin: 20px 100px;
+    height: 100vh;
+    scroll-snap-align: start;
+    padding-top: 70px;
+}
+.third-page{
+    height: 90vh;
+    scroll-snap-align: start;
+    margin: 20px 100px;
+    padding-top: 70px;
+}
+
+
+
+.name{
+    padding-left: 20px;
+    position: relative;
+    top: -10px;
+ 
+ }
+ .my-name{
+    font-size: 38px;
+    font-family: sans-serif;
+    padding: 0, 5px;
+}
+.career{
+    padding: 0, 5px;
+    font-size: 32px;
+    font-family: sans-serif;
+    color:#939185;
+}
+.socials{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;  
+    gap: 10px; 
+    padding: 0, 5px;
+   
+
+
+}
+.social-icons{
+    height: 20px; 
+    position:relative; 
+    top:3px;
+   
+}
+.content-make{
+    margin-top: 50px;
+}
+.i-write{
+    font-size: 20px;
+}
+.green{
+  color: green;
+  font-weight: bolder;
+}
+.yellow{
+    color:#E6B9A6;
+    font-weight: bolder; 
+}
+.buttons{
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    gap: 15px;
+    margin-top: 15px;
+}
+.click-black{
+    text-decoration: none;
+    color: #2F3645;
+    font-size: 22px;
+    background-color:#000000 ;
+    padding: 5px 10px;
+    border-radius: 50px;
+}
+.btn-text{
+    font-weight: bold;
+    color:yellow;
+
+}
+.click-white{
+    color: black;
+    font-size: 22px;
+    border-radius: 50px;
+    border:  solid 2px black;
+    padding: 3px 10px;
+    font-weight: bolder;
+
+}
+.btn-right{
+    color: black;
+}
+
+.biggest-box{
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    display: block;
+}
+header{
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5vh;
+    padding: 40px 0;
+    text-align: center;
+}
+.right{
+    display: flex;
+    gap: 15px;
+
+}
+.content-inside, .buttons{
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+}
+.h1-25px{
+    font-size: 25px;
+    
+}
+.h1-25px{
+    font-size: 25px;
+
+}
+.content-inside, .buttons{
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+}
+.profile-picture{
+    height: 120px;
+    width: 120px;
+    border-radius: 100px;
+    /* position: relative;
+    right: 5px; */
+    /* have to change the image inside  */
+}
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px;
+    position: relative;
+    bottom: 100px;
+}
+#at-the{
+    margin-top: 30px;
+}
