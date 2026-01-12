@@ -1,0 +1,119 @@
+---
+title: "Building a Home VPS with Raspberry Pi 5"
+publishedAt: "2025-11-26"
+summary: "Why I stopped paying for Cloud VPS and built my own using Raspberry Pi 5, SSD, Tailscale, and Cloudflare Tunnel."
+---
+
+I recently found myself staring at the pricing pages of various Cloud VPS providers, calculating the costs for the next year or two. It hit me: why am I paying monthly fees for a server when I have a perfectly good internet connection at home that I'm already paying for?
+
+Most of the time, I'm outside, and my home internet is just sitting there, underutilized. I realized I could build my own VPS that serves me for years without any extra monthly fees.
+
+Here is a quick comparison I made while researching:
+
+| Feature | Cloud VPS (e.g., AWS, DigitalOcean) | Home VPS (Raspberry Pi 5) |
+| :--- | :--- | :--- |
+| **Setup Cost** | $0 | ~$150 (Pi 5 + SSD + Accessories) |
+| **Monthly Cost** | $10 - $20+ | $0 (Negligible electricity) |
+| **2-Year Cost** | **$240 - $480+** | **~$150** |
+| **Storage** | Expensive to scale | Cheap (One-time SSD cost) |
+| **Privacy** | Shared infrastructure | 100% Private |
+
+The math was clear. By building my own, I save money in the long run and get a powerful machine to showcase my work to HRs and Engineering Managers.
+
+In this guide, I'll show you how I built my own robust Home VPS using a Raspberry Pi 5 (or a Mini PC) with an SSD, and how I solved the "dynamic IP" problem using Cloudflare Tunnel.
+
+> **Note**: While I used a Raspberry Pi 5, you can also use a Mini PC. It's often easier (x86 architecture) and can be even more powerful, but the steps are largely the same.
+
+## 1. Hardware Setup
+
+The Raspberry Pi 5 is a beast, but running it off an SD card is a bottleneck and a reliability risk. I went with an NVMe SSD for speed and longevity.
+
+**My Build:**
+- Raspberry Pi 5 (8GB RAM)
+- NVMe SSD (256GB)
+- PCIe to NVMe HAT
+- Official Power Supply
+
+Assemble everything carefully. Booting from an SSD makes the Pi feel like a real desktop/server.
+
+## 2. Installing Linux
+
+I installed **Ubuntu Server 24.04 LTS** because I wanted a standard server environment.
+
+1.  Used **Raspberry Pi Imager**.
+2.  Selected Ubuntu Server (64-bit).
+3.  Pre-configured hostname, SSH, and WiFi settings in the Imager's "Advanced Options".
+4.  Flashed it to the SSD.
+
+## 3. Network Configuration
+
+Connecting to the home network was easy, but I needed a secure way to SSH into it from outside without opening dangerous ports on my router.
+
+### Secure Remote Access with Tailscale
+
+I used **Tailscale**, which creates a private mesh network.
+
+1.  **Install Tailscale**:
+    ```bash
+    curl -fsSL https://tailscale.com/install.sh | sh
+    ```
+2.  **Authenticate**:
+    ```bash
+    sudo tailscale up
+    ```
+3.  **Connect**: I installed Tailscale on my laptop and phone. Now I can SSH into my Pi using its Tailscale IP from anywhere, securely, as if I were on the same LAN.
+
+## 4. Exposing to the Web with Cloudflare Tunnel
+
+This was the tricky part. My ISP gives me a dynamic IP address that changes often. I didn't want to deal with Dynamic DNS or port forwarding.
+
+**The Solution: Cloudflare Tunnel.**
+
+It creates an outbound connection from the Pi to Cloudflare's network. Traffic comes in through Cloudflare and down the tunnel to my Pi. No public IP needed.
+
+1.  **Bought a Domain**: I purchased my own domain name.
+2.  **Installed `cloudflared`**:
+    Followed the instructions on the Cloudflare Zero Trust Dashboard.
+    ```bash
+    # Example command provided by Cloudflare
+    sudo cloudflared service install <YOUR_TOKEN>
+    ```
+3.  **Configured the Tunnel**:
+    In the dashboard, I pointed a subdomain (e.g., `project.mydomain.com`) to `http://localhost:80`.
+
+Now, my local server is accessible to the world, and it handles the dynamic IP changes automatically.
+
+## 5. Setting up Nginx as a Reverse Proxy
+
+To host multiple projects (portfolio, demos, etc.) on the same Pi, I set up Nginx.
+
+1.  **Install Nginx**:
+    ```bash
+    sudo apt install nginx -y
+    ```
+2.  **Configure a Site**:
+    I created a config block to proxy requests to my app running on port 3000.
+    ```nginx
+    server {
+        listen 80;
+        server_name project.local;
+
+        location / {
+            proxy_pass http://localhost:3000;
+        }
+    }
+    ```
+
+## 6. Deploying a Project
+
+I cloned one of my projects, installed dependencies, and started it with **PM2** to keep it running in the background.
+
+```bash
+pm2 start npm --name "my-project" -- start
+```
+
+## Conclusion
+
+It feels great to have my own infrastructure. I'm saving money, I learned a ton about networking and Linux, and now I have a live URL to show HRs during interviews. It demonstrates that I can not only write code but also deploy and manage it.
+
+If you have an old laptop or a Pi gathering dust, I highly recommend trying this out!
