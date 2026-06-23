@@ -32,3 +32,4 @@ Thumbs.db
 # Optional: local test videos (large files, if any)
 # /public/meditech.mp4
 # /public/meditech-preview.mp4
+analytics.json

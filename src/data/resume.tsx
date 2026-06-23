@@ -3,28 +3,51 @@ import { HomeIcon, NotebookIcon } from "lucide-react";
 
 export const DATA = {
   name: "Ismoiljon Masharipov",
-  initials: "DV",
+  initials: "IM",
   url: "https://ismaildev.uz",
   location: "Seoul, South Korea",
   locationLink: "https://www.google.com/maps/place/seoul",
   description:
-    "Full-Stack Software Engineer passionate about building scalable and impactful solutions. Driven by problem-solving, continuous learning, and creating real-world value.",
+    "Full Stack Software Engineer specializing in scalable SaaS platforms, microservices architecture, and AI-integrated production applications.",
   summary:
-    "I am a soon-to-be graduate from Sejong University, majoring in International Business and Computer Science, with a strong foundation in full-stack software engineering. Currently, I work as a freelancer with clients such as Braintrust and Tellus International, building practical solutions and gaining real-world experience. I am actively seeking internship or full-time opportunities where I can contribute, grow, and make an impact",
+    "Full Stack Software Engineer with experience designing, developing, and deploying scalable web applications, SaaS platforms, APIs, and cloud-based solutions. Strong background in backend development, microservices architecture, database design, system integrations, and modern frontend frameworks. Experienced delivering production systems from concept through deployment while collaborating with distributed teams and business stakeholders. Additional experience integrating AI-enabled capabilities into production platforms through RAG, machine learning services, and intelligent automation solutions. Currently completing a BSc in Computer Science at Sejong University (graduating Jul 2026). Eligible for South Korea D-10 Job Seeker Visa from Aug 2026.",
   avatarUrl: "/me.png",
   skills: [
+    "TypeScript",
+    "C#",
+    "JavaScript",
+    "Python",
+    "SQL",
     "React",
     "Next.js",
-    "Typescript",
+    "Angular",
+    "React Native",
+    "NestJS",
+    "ASP.NET Core",
+    ".NET",
+    "Entity Framework",
     "Node.js",
-    "Python",
-    "Postgres",
+    "Express.js",
+    "FastAPI",
+    "REST APIs",
+    "GraphQL",
+    "PostgreSQL",
+    "MongoDB",
+    "Redis",
+    "SQL Server",
+    "AWS",
+    "Azure",
     "Docker",
-    "SQL",
-    "Nest.JS",
+    "GitHub Actions",
     "Linux",
-    "etc..."
-
+    "Nginx",
+    "Cloudflare",
+    "PM2",
+    "WebSockets",
+    "Microservices",
+    "RAG",
+    "LLM Integrations",
+    "IoT",
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
@@ -82,7 +105,7 @@ export const DATA = {
       start: "Aug 2025",
       end: "Present",
       description:
-        "Contributed to remote client projects in full-stack development, API integration, and automation systems using Nest.js, TypeScript, Node.js, React, and MongoDB."
+        "Contribute to production SaaS applications as a vetted software engineer, developing and extending microservice-based solutions using TypeScript, React, NestJS, and GraphQL. Optimized critical API endpoints through database query tuning and Redis caching, reducing response times from ~200ms to under 50ms. Automated deployment pipelines with Docker, GitHub Actions, and AWS services."
     },
     {
       company: "TELUS International",
@@ -94,7 +117,7 @@ export const DATA = {
       start: "Sept 2025",
       end: "Present",
       description:
-        "Annotated 500+ video frames daily for computer vision ML models with a 97% accuracy rate while meeting production deadlines."
+        "Annotated 500+ video frames daily for computer vision ML models (YOLO-based) with a 97% accuracy rate, consistently meeting production deadlines and contributing to model training pipelines."
     },
     {
       company: "Sejong University",
@@ -106,7 +129,7 @@ export const DATA = {
       start: "July 2023",
       end: "2024",
       description:
-        "Assisted 50 students with one-on-one guidance, debugging, and project help across React, MongoDB, REST/GraphQL APIs, and Docker deployment."
+        "Provided technical mentoring across React, MongoDB, REST APIs, GraphQL, and software engineering best practices to 50+ students. Authored deployment and Docker documentation adopted as course material. Built a web application using Angular in collaboration with a professor, applying component architecture, dependency injection, and reactive patterns."
     },
     {
       company: "Devex.uz LLC",
@@ -118,7 +141,19 @@ export const DATA = {
       start: "July 2024",
       end: "Feb 2025",
       description:
-        "Developed REST APIs with Express.js and built full-stack apps with NestJS and Next.js integrating TCP, GraphQL, and REST for backend–frontend communication demos."
+        "Designed and delivered a full-stack engineering curriculum covering backend development, frontend frameworks, databases, APIs, and deployment practices. Led hands-on initiatives resulting in multiple production-ready applications. Mentored aspiring developers and supported successful placement of graduates into software engineering positions."
+    },
+    {
+      company: "NovaTech Solutions",
+      href: "",
+      badges: [],
+      location: "Remote",
+      title: "Software Developer",
+      logoUrl: "",
+      start: "Feb 2021",
+      end: "Dec 2023",
+      description:
+        "Developed business applications in C#, ASP.NET Core, Entity Framework, and SQL Server, building REST APIs and CRUD-based workflows for inventory management and operational processes. Built full-stack web applications and internal SaaS platforms with JavaScript, Express.js, PostgreSQL, and MySQL. Improved application performance through frontend optimization and database query tuning, reducing average page load times by ~25%."
     }
   ],
   education: [
@@ -160,6 +195,11 @@ export const DATA = {
           href: "https://meditech.ismaildev.uz",
           icon: <Icons.globe className="size-3" />,
         },
+        {
+          type: "Presentation",
+          href: "/presentations/meditech/",
+          icon: <Icons.globe className="size-3" />,
+        },
       ],
       image: "",
       video: "./meditech.mp4"
@@ -189,7 +229,88 @@ export const DATA = {
       },],
       image: "",
       video: "./pizza.mp4"
+    },
+    {
+      title: "TableTap",
+      href: "https://tabletap.ismaildev.uz",
+      dates: "Oct 2024 - Jan 2025",
+      active: true,
+      description: "Production QR-ordering and POS platform supporting real-world restaurant operations. Implemented offline-first functionality and thermal printer integrations for uninterrupted service. Built with NestJS, MongoDB, WebSockets, JWT + Google OAuth, role-based access (Waiter/Owner/Admin), and real-time order updates. Deployed with PM2 and Nginx.",
+      technologies: ["NestJS", "TypeScript", "MongoDB", "WebSockets", "JWT", "Google OAuth", "Next.js", "Nginx", "PM2"],
+      links: [
+        { type: "Website", href: "https://tabletap.ismaildev.uz", icon: <Icons.globe className="size-3" /> },
+        { type: "Presentation", href: "/presentations/tabletap/", icon: <Icons.globe className="size-3" /> },
+      ],
+      image: "",
+      video: ""
+    },
+    {
+      title: "MemoAI",
+      href: "https://memoai.ismaildev.uz",
+      dates: "Nov 2024 - Dec 2024",
+      active: true,
+      description:
+        "Modern SaaS landing page for an AI-powered memo and note-taking app; built with Next.js, deployed on VPS with Nginx reverse proxy; responsive design with smooth animations.",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Nginx", "PM2"],
+      links: [{ type: "Website", href: "https://memoai.ismaildev.uz", icon: <Icons.globe className="size-3" /> }],
+      image: "",
+      video: ""
+    },
+    {
+      title: "Pi System Monitor",
+      href: "https://github.com/Ismoiljon1101",
+      dates: "Mar 2024 - Apr 2024",
+      active: false,
+      description:
+        "Lightweight Node.js app on a Raspberry Pi monitoring CPU temp, disk & RAM every 5s; Telegram bot sends alerts when thresholds are exceeded and supports /status, /reboot, /shutdown commands; uses Command Pattern with graceful error handling and event logging.",
+      technologies: ["Node.js", "TypeScript", "Raspberry Pi", "Telegram Bot API", "Linux"],
+      links: [{ type: "Source", href: "https://github.com/Ismoiljon1101", icon: <Icons.github className="size-3" /> }],
+      image: "",
+      video: ""
+    },
+    {
+      title: "PasarHalal Korea",
+      href: "",
+      dates: "2024 - Present",
+      active: true,
+      description:
+        "Production multi-vendor e-commerce platform supporting customer ordering, vendor management, and role-based access controls. Built backend services with NestJS and customer-facing applications with Next.js and Progressive Web App technologies. Deployed on cloud-hosted architecture utilizing Cloudflare and PM2.",
+      technologies: ["NestJS", "Next.js", "TypeScript", "MongoDB", "PWA", "Cloudflare", "PM2", "Docker"],
+      links: [{ type: "Presentation", href: "/presentations/pasarhalal/", icon: <Icons.globe className="size-3" /> }],
+      image: "",
+      video: ""
+    },
+    {
+      title: "Smart IoT Monitoring Platform",
+      href: "",
+      dates: "2024 - Present",
+      active: true,
+      description:
+        "Led architecture and backend development for an IoT monitoring solution integrating sensors, mobile applications, dashboards, and AI-enabled functionality. Developed real-time data pipelines, WebSocket communication layers, and system integrations across hardware and cloud layers.",
+      technologies: ["NestJS", "TypeScript", "WebSockets", "MongoDB", "React Native", "IoT", "Docker", "AWS"],
+      links: [],
+      image: "",
+      video: ""
+    },
+    {
+      title: "AI Clinical Decision Support",
+      href: "",
+      dates: "2025 - Present",
+      active: true,
+      description:
+        "Architected a multilingual web application utilizing Retrieval-Augmented Generation (RAG with BM25) and AI-assisted decision support workflows. Designed retrieval services and backend integrations supporting scalable, accurate information delivery for clinical use cases.",
+      technologies: ["Python", "FastAPI", "RAG", "BM25", "LLM", "Next.js", "PostgreSQL", "Docker"],
+      links: [],
+      image: "",
+      video: ""
     }
+  ],
+  languages: [
+    { name: "English", level: "C1 — Professional Working Proficiency" },
+    { name: "Korean", level: "TOPIK 3 — Intermediate" },
+    { name: "Uzbek", level: "Native" },
+    { name: "Turkish", level: "Bilingual" },
+    { name: "Russian", level: "Intermediate" },
   ],
   hackathons: [
     {
@@ -197,7 +318,7 @@ export const DATA = {
       dates: "November 8th - 9th, 2025",
       location: "Seoul, South Korea",
       description:
-        "That was awvesom hackathon experience, I thank the organizers and participants, the most facinationg part was I met a lot of elite coorparation seniors who work for Nvidia, Coupang etc. and got personal advices from them.",
+        "An awesome hackathon experience — I met senior engineers from Nvidia, Coupang, and other elite companies and received invaluable personal career advice from them.",
       image:
         "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,anim=false,background=white,quality=75,width=32,height=32/calendars/ic/d99785fc-961b-4046-b091-5429423dbcc3.jpg",
       links: [],

@@ -1,4 +1,7 @@
+"use client";
+
 import { Dock, DockIcon } from "@/components/magicui/dock";
+import { useLang } from "@/components/language-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -10,6 +13,22 @@ import {
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+
+function LangToggle() {
+  const { lang, setLang } = useLang();
+  return (
+    <button
+      onClick={() => setLang(lang === "en" ? "ko" : "en")}
+      className={cn(
+        buttonVariants({ variant: "ghost", size: "icon" }),
+        "size-12 text-xs font-bold"
+      )}
+      title={lang === "en" ? "한국어로 전환" : "Switch to English"}
+    >
+      {lang === "en" ? "한" : "EN"}
+    </button>
+  );
+}
 
 export default function Navbar() {
   return (
@@ -60,6 +79,16 @@ export default function Navbar() {
             </DockIcon>
           ))}
         <Separator orientation="vertical" className="h-full py-2" />
+        <DockIcon>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <LangToggle />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Language / 언어</p>
+            </TooltipContent>
+          </Tooltip>
+        </DockIcon>
         <DockIcon>
           <Tooltip>
             <TooltipTrigger asChild>

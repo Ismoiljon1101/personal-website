@@ -1,5 +1,11 @@
+import { AuroraBackground } from "@/components/aurora-background";
+import { CustomCursor } from "@/components/cursor";
+import { GlobalStarfield } from "@/components/global-starfield";
+import { LanguageProvider } from "@/components/language-provider";
 import Navbar from "@/components/navbar";
+import { ScrollProgress } from "@/components/scroll-progress";
 import { ThemeProvider } from "@/components/theme-provider";
+import { VisitTracker } from "@/components/visit-tracker";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
@@ -62,10 +68,17 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
-          <TooltipProvider delayDuration={0}>
-            {children}
-            <Navbar />
-          </TooltipProvider>
+          <GlobalStarfield />
+          <AuroraBackground />
+          <VisitTracker />
+          <LanguageProvider>
+            <TooltipProvider delayDuration={0}>
+              <ScrollProgress />
+              <CustomCursor />
+              {children}
+              <Navbar />
+            </TooltipProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

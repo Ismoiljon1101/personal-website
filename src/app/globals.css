@@ -9,6 +9,7 @@
 
       --card: 0 0% 100%;
       --card-foreground: 210 11.1% 3.53%;
+      --card-opacity: 0.72;
 
       --popover: 0 0% 100%;
       --popover-foreground: 210 11.1% 3.53%;
@@ -52,7 +53,7 @@
       --secondary-foreground: 0 0% 98%;
 
       --muted: 0 0% 14.9%;
-      --muted-foreground: 0 0% 63.9%;
+      --muted-foreground: 0 0% 72%;
 
       --accent: 0 0% 14.9%;
       --accent-foreground: 0 0% 98%;
@@ -141,4 +142,40 @@ code[data-line-numbers-max-digits="2"] > [data-line]::before {
  
 code[data-line-numbers-max-digits="3"] > [data-line]::before {
   width: 3rem;
+}
+
+@keyframes shimmer-slide {
+  0%   { transform: translateX(-200%) skewX(-20deg); }
+  100% { transform: translateX(500%)  skewX(-20deg); }
+}
+
+@keyframes corner-pulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+/* Aurora light-mode background blobs */
+@keyframes aurora-1 {
+  from { transform: translate(0, 0)   scale(1);    }
+  to   { transform: translate(6%, 9%) scale(1.18); }
+}
+@keyframes aurora-2 {
+  from { transform: translate(0, 0)     scale(1.1);  }
+  to   { transform: translate(-8%, 5%)  scale(0.88); }
+}
+@keyframes aurora-3 {
+  from { transform: translate(0, 0)     scale(1);    }
+  to   { transform: translate(-5%, -7%) scale(1.22); }
+}
+@keyframes aurora-4 {
+  from { transform: translate(0, 0)    scale(0.95); }
+  to   { transform: translate(7%, -5%) scale(1.2);  }
+}
+@keyframes aurora-5 {
+  from { transform: translate(0, 0)    scale(1.05); }
+  to   { transform: translate(-6%, 6%) scale(0.9);  }
+}
+@keyframes aurora-6 {
+  from { transform: translate(0, 0)     scale(1);   }
+  to   { transform: translate(-9%, -4%) scale(1.15);}
 }
