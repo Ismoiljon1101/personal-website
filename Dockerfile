@@ -17,4 +17,6 @@ COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 EXPOSE 3000
 ENV PORT=3000
+HEALTHCHECK --interval=2s --timeout=2s --retries=3 --start-period=5s \
+  CMD wget -q -O /dev/null http://localhost:3000/ || exit 1
 CMD ["node", "server.js"]
