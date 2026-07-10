@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PasarHalal Korea — Multi-Vendor E-Commerce</title>
+<style>
+  :root {
+    --accent: #22c55e;
+    --accent2: #16a34a;
+    --bg: #030f07;
+    --card: #0a1f0e;
+    --text: #f0fdf4;
+    --muted: #6b9e78;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; overflow-x: hidden; }
+  #lang-toggle { position: fixed; top: 1.2rem; right: 1.5rem; z-index: 100; background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.3); color: var(--text); padding: .4rem 1rem; border-radius: 999px; cursor: pointer; font-size: .85rem; font-weight: 600; backdrop-filter: blur(8px); transition: background .2s; }
+  #lang-toggle:hover { background: rgba(34,197,94,.22); }
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(34,197,94,.12) 0%, transparent 70%); }
+  .grid-bg { position: absolute; inset: 0; opacity: .04; background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; }
+  .pill { display: inline-block; background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.35); color: var(--accent); padding: .4rem 1.2rem; border-radius: 999px; font-size: .85rem; font-weight: 600; letter-spacing: .05em; margin-bottom: 1.5rem; animation: fadeUp .6s ease both; }
+  .hero h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.05; background: linear-gradient(135deg, #fff 40%, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeUp .7s .1s ease both; }
+  .hero p { max-width: 580px; margin: 1.5rem auto 0; color: var(--muted); font-size: 1.05rem; line-height: 1.7; animation: fadeUp .7s .2s ease both; }
+  .hero-btns { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; justify-content: center; animation: fadeUp .7s .3s ease both; }
+  .btn { padding: .75rem 2rem; border-radius: 999px; font-weight: 700; font-size: .95rem; cursor: pointer; text-decoration: none; transition: transform .2s, box-shadow .2s; display: inline-flex; align-items: center; gap: .5rem; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; box-shadow: 0 4px 24px rgba(34,197,94,.3); }
+  .btn-ghost { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); color: var(--text); }
+  section { padding: 5rem 1.5rem; max-width: 880px; margin: 0 auto; }
+  .section-label { font-size: .8rem; font-weight: 700; letter-spacing: .12em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+  h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.15; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 1rem; margin-top: 3rem; }
+  .stat { background: var(--card); border: 1px solid rgba(255,255,255,.05); border-radius: 1rem; padding: 1.5rem; text-align: center; transition: transform .2s, box-shadow .2s; }
+  .stat:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(34,197,94,.1); }
+  .stat-num { font-size: 2.2rem; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: .8rem; color: var(--muted); margin-top: .25rem; }
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 1.25rem; margin-top: 3rem; }
+  .feat { background: var(--card); border: 1px solid rgba(255,255,255,.05); border-radius: 1.25rem; padding: 1.75rem; transition: transform .2s, border-color .2s; }
+  .feat:hover { transform: translateY(-4px); border-color: rgba(34,197,94,.3); }
+  .feat-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .feat h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; }
+  .feat p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+  .tech-grid { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 2rem; }
+  .tag { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); padding: .4rem 1rem; border-radius: 999px; font-size: .85rem; font-weight: 500; transition: background .2s; }
+  .tag:hover { background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.35); color: var(--accent); }
+  footer { text-align: center; padding: 3rem 1.5rem; color: var(--muted); font-size: .85rem; border-top: 1px solid rgba(255,255,255,.05); }
+  footer a { color: var(--accent); text-decoration: none; }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform:none; } }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 99px; }
+</style>
+</head>
+<body>
+<button id="lang-toggle" onclick="toggleLang()">한국어</button>
+<div class="grid-bg"></div>
+
+<div class="hero">
+  <div class="pill" data-en="Multi-Vendor E-Commerce" data-ko="멀티 벤더 이커머스">Multi-Vendor E-Commerce</div>
+  <h1>PasarHalal<br/>Korea</h1>
+  <p data-en="A production multi-vendor e-commerce platform serving the Halal food and product market in South Korea, with vendor management, PWA support, and cloud deployment."
+     data-ko="벤더 관리, PWA 지원, 클라우드 배포를 갖춘 한국의 할랄 식품·제품 시장을 위한 멀티 벤더 이커머스 플랫폼.">
+    Production multi-vendor e-commerce for South Korea's Halal market.
+  </p>
+  <div class="hero-btns">
+    <a href="/" class="btn btn-ghost">← <span data-en="Back to Portfolio" data-ko="포트폴리오로">Back to Portfolio</span></a>
+  </div>
+</div>
+
+<section class="reveal">
+  <div class="section-label" data-en="Platform" data-ko="플랫폼">Platform</div>
+  <h2 data-en="Built for Korea's Halal Market" data-ko="한국 할랄 시장을 위해 구축">Built for Korea's Halal Market</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">Multi</div><div class="stat-label" data-en="Vendor marketplace model" data-ko="멀티 벤더 마켓플레이스">Vendor Model</div></div>
+    <div class="stat"><div class="stat-num">PWA</div><div class="stat-label" data-en="Installable on any device" data-ko="모든 기기에 설치 가능">Progressive Web App</div></div>
+    <div class="stat"><div class="stat-num">CF</div><div class="stat-label" data-en="Cloudflare CDN + DDoS protection" data-ko="Cloudflare CDN + DDoS 방어">Cloudflare Secured</div></div>
+    <div class="stat"><div class="stat-num">🔐</div><div class="stat-label" data-en="Role-based access controls" data-ko="역할 기반 접근 제어">RBAC</div></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-label" data-en="Features" data-ko="기능">Features</div>
+  <h2 data-en="Everything a Marketplace Needs" data-ko="마켓플레이스에 필요한 모든 것">Everything a Marketplace Needs</h2>
+  <div class="features">
+    <div class="feat"><div class="feat-icon">🏪</div><h3 data-en="Vendor Dashboard" data-ko="벤더 대시보드">Vendor Dashboard</h3><p data-en="Each vendor manages their own products, inventory, and orders independently." data-ko="각 벤더가 자신의 상품, 재고, 주문을 독립적으로 관리.">Independent vendor storefronts.</p></div>
+    <div class="feat"><div class="feat-icon">🛒</div><h3 data-en="Customer Ordering" data-ko="고객 주문">Customer Ordering</h3><p data-en="Smooth shopping experience across multiple vendors in a single cart checkout." data-ko="단일 결제로 여러 벤더의 상품을 쇼핑하는 부드러운 경험.">Multi-vendor cart and checkout.</p></div>
+    <div class="feat"><div class="feat-icon">📲</div><h3 data-en="PWA — Install on Phone" data-ko="PWA — 스마트폰에 설치">PWA Support</h3><p data-en="Users can install the platform on their phone like a native app — no app store." data-ko="앱 스토어 없이 스마트폰에 네이티브 앱처럼 설치 가능.">Works offline, installable on any device.</p></div>
+    <div class="feat"><div class="feat-icon">🔑</div><h3 data-en="Role-Based Access" data-ko="역할 기반 접근">Role-Based Access</h3><p data-en="Separate customer, vendor, and admin roles with appropriate permissions and views." data-ko="적절한 권한과 화면을 가진 고객, 벤더, 관리자 역할 분리.">Customer, Vendor, Admin separation.</p></div>
+    <div class="feat"><div class="feat-icon">☁️</div><h3 data-en="Cloudflare + PM2" data-ko="Cloudflare + PM2">Cloud Deployed</h3><p data-en="Cloudflare for CDN and DDoS protection, PM2 for zero-downtime process management." data-ko="CDN과 DDoS 방어를 위한 Cloudflare, 무중단 운영을 위한 PM2.">Secure, fast, always-online.</p></div>
+    <div class="feat"><div class="feat-icon">🌙</div><h3 data-en="Halal Certified Filtering" data-ko="할랄 인증 필터링">Halal Focus</h3><p data-en="Built specifically for the Korean Muslim community and expat Halal food market." data-ko="한국 무슬림 커뮤니티와 외국인 할랄 식품 시장을 위해 특별히 구축.">Serving Korea's Muslim community.</p></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-label" data-en="Technology" data-ko="기술">Technology</div>
+  <h2 data-en="Tech Stack" data-ko="기술 스택">Tech Stack</h2>
+  <div class="tech-grid">
+    <span class="tag">NestJS</span><span class="tag">Next.js</span><span class="tag">TypeScript</span>
+    <span class="tag">MongoDB</span><span class="tag">PWA</span><span class="tag">Cloudflare</span>
+    <span class="tag">PM2</span><span class="tag">Docker</span><span class="tag">REST API</span>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <a href="https://ismaildev.uz">Ismoiljon Masharipov</a></p>
+  <p style="margin-top:.5rem"><a href="/">← Back to portfolio</a></p>
+</footer>
+
+<script>
+  let currentLang = 'en';
+  function toggleLang() {
+    currentLang = currentLang === 'en' ? 'ko' : 'en';
+    document.getElementById('lang-toggle').textContent = currentLang === 'en' ? '한국어' : 'English';
+    document.querySelectorAll('[data-en]').forEach(el => { el.textContent = el.getAttribute('data-' + currentLang); });
+  }
+  const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

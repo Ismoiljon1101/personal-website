@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TableTap — Restaurant POS Presentation</title>
+<style>
+  :root {
+    --accent: #ff6b35;
+    --accent2: #f7c59f;
+    --bg: #0f0a05;
+    --card: #1a110a;
+    --text: #fdf6ee;
+    --muted: #a08060;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+  #lang-toggle {
+    position: fixed; top: 1.2rem; right: 1.5rem; z-index: 100;
+    background: rgba(255,107,53,.15); border: 1px solid rgba(255,107,53,.3);
+    color: var(--text); padding: .4rem 1rem; border-radius: 999px;
+    cursor: pointer; font-size: .85rem; font-weight: 600;
+    backdrop-filter: blur(8px); transition: background .2s;
+  }
+  #lang-toggle:hover { background: rgba(255,107,53,.25); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 2rem; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,107,53,.14) 0%, transparent 70%);
+  }
+  .grid-bg {
+    position: absolute; inset: 0; opacity: .04;
+    background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+    background-size: 28px 28px; pointer-events: none;
+  }
+  .pill {
+    display: inline-block;
+    background: rgba(255,107,53,.15); border: 1px solid rgba(255,107,53,.4);
+    color: var(--accent); padding: .4rem 1.2rem; border-radius: 999px;
+    font-size: .85rem; font-weight: 600; letter-spacing: .05em;
+    margin-bottom: 1.5rem; animation: fadeUp .6s ease both;
+  }
+  .hero h1 {
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    font-weight: 800; line-height: 1.05;
+    background: linear-gradient(135deg, #fff 40%, var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: fadeUp .7s .1s ease both;
+  }
+  .hero p {
+    max-width: 580px; margin: 1.5rem auto 0;
+    color: var(--muted); font-size: 1.05rem; line-height: 1.7;
+    animation: fadeUp .7s .2s ease both;
+  }
+  .hero-btns { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; justify-content: center; animation: fadeUp .7s .3s ease both; }
+  .btn { padding: .75rem 2rem; border-radius: 999px; font-weight: 700; font-size: .95rem; cursor: pointer; text-decoration: none; transition: transform .2s, box-shadow .2s; display: inline-flex; align-items: center; gap: .5rem; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), #ff9a3c); color: #fff; box-shadow: 0 4px 24px rgba(255,107,53,.35); }
+  .btn-ghost { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: var(--text); }
+
+  section { padding: 5rem 1.5rem; max-width: 880px; margin: 0 auto; }
+  .section-label { font-size: .8rem; font-weight: 700; letter-spacing: .12em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+  h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.15; }
+  .subtitle { color: var(--muted); margin-top: .75rem; font-size: 1rem; line-height: 1.7; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 1rem; margin-top: 3rem; }
+  .stat { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 1rem; padding: 1.5rem; text-align: center; transition: transform .2s, box-shadow .2s; }
+  .stat:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(255,107,53,.1); }
+  .stat-num { font-size: 2.2rem; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: .8rem; color: var(--muted); margin-top: .25rem; }
+
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 1.25rem; margin-top: 3rem; }
+  .feat { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 1.25rem; padding: 1.75rem; transition: transform .2s, border-color .2s; }
+  .feat:hover { transform: translateY(-4px); border-color: rgba(255,107,53,.3); }
+  .feat-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .feat h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; }
+  .feat p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+  .tech-grid { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 2rem; }
+  .tag { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); padding: .4rem 1rem; border-radius: 999px; font-size: .85rem; font-weight: 500; transition: background .2s, border-color .2s; }
+  .tag:hover { background: rgba(255,107,53,.12); border-color: rgba(255,107,53,.4); color: var(--accent); }
+
+  .flow { margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; }
+  .flow-step { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 1rem; padding: 1.5rem; transition: border-color .2s; }
+  .flow-step:hover { border-color: rgba(255,107,53,.3); }
+  .flow-num { font-size: 1.8rem; font-weight: 900; color: var(--accent); min-width: 2.5rem; line-height: 1; }
+  .flow-body h3 { font-weight: 700; font-size: 1rem; margin-bottom: .3rem; }
+  .flow-body p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+  footer { text-align: center; padding: 3rem 1.5rem; color: var(--muted); font-size: .85rem; border-top: 1px solid rgba(255,255,255,.06); }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform:none; } }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 99px; }
+</style>
+</head>
+<body>
+
+<button id="lang-toggle" onclick="toggleLang()">한국어</button>
+<div class="grid-bg"></div>
+
+<div class="hero">
+  <div class="pill" data-en="Restaurant POS Platform" data-ko="레스토랑 POS 플랫폼">Restaurant POS Platform</div>
+  <h1>TableTap</h1>
+  <p data-en="A production QR-ordering and Point-of-Sale platform supporting real-world restaurant operations with offline capability and thermal printer integration."
+     data-ko="오프라인 기능과 영수증 프린터 통합을 갖춘 실제 레스토랑 운영을 지원하는 QR 주문 및 POS 플랫폼.">
+    A production QR-ordering and Point-of-Sale platform supporting real-world restaurant operations.
+  </p>
+  <div class="hero-btns">
+    <a href="https://tabletap.ismaildev.uz" class="btn btn-primary" target="_blank">🌐 <span data-en="Live Platform" data-ko="라이브 플랫폼">Live Platform</span></a>
+    <a href="/" class="btn btn-ghost">← <span data-en="Back to Portfolio" data-ko="포트폴리오로">Back to Portfolio</span></a>
+  </div>
+</div>
+
+<section class="reveal">
+  <div class="section-label" data-en="Impact" data-ko="성과">Impact</div>
+  <h2 data-en="Solving Real Restaurant Problems" data-ko="실제 레스토랑 문제 해결">Solving Real Restaurant Problems</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">QR</div><div class="stat-label" data-en="Contactless table ordering" data-ko="비접촉 테이블 주문">Contactless ordering</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label" data-en="Roles: Waiter / Owner / Admin" data-ko="역할: 웨이터 / 사장 / 관리자">User Roles</div></div>
+    <div class="stat"><div class="stat-num">RT</div><div class="stat-label" data-en="Real-time order updates" data-ko="실시간 주문 업데이트">Real-time Updates</div></div>
+    <div class="stat"><div class="stat-num">🖨️</div><div class="stat-label" data-en="Thermal printer integration" data-ko="영수증 프린터 통합">Printer Integration</div></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-label" data-en="Features" data-ko="기능">Features</div>
+  <h2 data-en="Full-Stack Restaurant Operations" data-ko="풀스택 레스토랑 운영">Full-Stack Restaurant Operations</h2>
+  <div class="features">
+    <div class="feat"><div class="feat-icon">📱</div><h3 data-en="QR Table Ordering" data-ko="QR 테이블 주문">QR Table Ordering</h3><p data-en="Customers scan a QR code at the table to order directly without a waiter." data-ko="고객이 테이블에서 QR코드를 스캔하여 웨이터 없이 직접 주문.">Scan to order at the table without a waiter.</p></div>
+    <div class="feat"><div class="feat-icon">🔴</div><h3 data-en="Live Order Dashboard" data-ko="실시간 주문 대시보드">Live Order Dashboard</h3><p data-en="Kitchen and waiters see real-time order updates via WebSockets instantly." data-ko="주방과 웨이터가 WebSocket을 통해 실시간 주문 업데이트 확인.">WebSocket-powered kitchen display system.</p></div>
+    <div class="feat"><div class="feat-icon">📡</div><h3 data-en="Offline-First" data-ko="오프라인 우선">Offline-First</h3><p data-en="System continues working when internet is unstable — critical for restaurants." data-ko="인터넷이 불안정할 때도 시스템 작동 — 레스토랑에 필수적.">Continues working without internet connection.</p></div>
+    <div class="feat"><div class="feat-icon">🖨️</div><h3 data-en="Thermal Printer" data-ko="영수증 프린터">Thermal Printer</h3><p data-en="Automatic receipt and kitchen ticket printing via thermal printer integration." data-ko="영수증 프린터 통합으로 영수증 및 주방 티켓 자동 인쇄.">Auto-print receipts and kitchen tickets.</p></div>
+    <div class="feat"><div class="feat-icon">🔐</div><h3 data-en="Google OAuth + JWT" data-ko="Google OAuth + JWT">Google OAuth + JWT</h3><p data-en="Secure login with Google OAuth and JWT tokens. Role-based access control built in." data-ko="Google OAuth와 JWT 토큰으로 보안 로그인. 역할 기반 접근 제어 내장.">Secure auth with role-based access.</p></div>
+    <div class="feat"><div class="feat-icon">📊</div><h3 data-en="Menu & Table Management" data-ko="메뉴 및 테이블 관리">Management Panel</h3><p data-en="Owner dashboard to manage menus, modifiers, tables, and business analytics." data-ko="메뉴, 수정자, 테이블 및 비즈니스 분석을 관리하는 사장 대시보드.">Full menu and table management for owners.</p></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-label" data-en="How It Works" data-ko="작동 방식">How It Works</div>
+  <h2 data-en="Customer Flow" data-ko="고객 플로우">Customer Flow</h2>
+  <div class="flow">
+    <div class="flow-step"><div class="flow-num">01</div><div class="flow-body"><h3 data-en="Scan QR Code" data-ko="QR 코드 스캔">Scan QR Code</h3><p data-en="Customer scans the QR code on the table — no app download needed." data-ko="고객이 테이블의 QR 코드를 스캔 — 앱 다운로드 불필요.">No app needed, instant menu access.</p></div></div>
+    <div class="flow-step"><div class="flow-num">02</div><div class="flow-body"><h3 data-en="Browse & Order" data-ko="메뉴 탐색 및 주문">Browse & Order</h3><p data-en="Interactive menu with modifiers, images, and real-time availability." data-ko="수정자, 이미지, 실시간 가용성이 있는 인터랙티브 메뉴.">Customizable menu with modifiers.</p></div></div>
+    <div class="flow-step"><div class="flow-num">03</div><div class="flow-body"><h3 data-en="Kitchen Receives Instantly" data-ko="주방 즉시 수신">Kitchen Receives Instantly</h3><p data-en="Order appears on kitchen display and thermal printer in real time via WebSockets." data-ko="WebSocket을 통해 실시간으로 주방 디스플레이와 프린터에 주문 표시.">Live kitchen dashboard and auto-print.</p></div></div>
+    <div class="flow-step"><div class="flow-num">04</div><div class="flow-body"><h3 data-en="Payment & Receipt" data-ko="결제 및 영수증">Payment & Receipt</h3><p data-en="Waiter processes payment and thermal printer issues the receipt automatically." data-ko="웨이터가 결제를 처리하고 영수증 프린터가 자동으로 영수증 발행.">Automated receipt generation.</p></div></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-label" data-en="Technology" data-ko="기술">Technology</div>
+  <h2 data-en="Tech Stack" data-ko="기술 스택">Tech Stack</h2>
+  <div class="tech-grid">
+    <span class="tag">NestJS</span><span class="tag">TypeScript</span><span class="tag">MongoDB</span>
+    <span class="tag">WebSockets</span><span class="tag">JWT</span><span class="tag">Google OAuth</span>
+    <span class="tag">Next.js</span><span class="tag">Nginx</span><span class="tag">PM2</span>
+    <span class="tag">Offline-First</span><span class="tag">Thermal Printer API</span>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <a href="https://ismaildev.uz">Ismoiljon Masharipov</a> · <a href="https://tabletap.ismaildev.uz" target="_blank">tabletap.ismaildev.uz</a></p>
+  <p style="margin-top:.5rem"><a href="/">← Back to portfolio</a></p>
+</footer>
+
+<script>
+  let currentLang = 'en';
+  function toggleLang() {
+    currentLang = currentLang === 'en' ? 'ko' : 'en';
+    document.getElementById('lang-toggle').textContent = currentLang === 'en' ? '한국어' : 'English';
+    document.querySelectorAll('[data-en]').forEach(el => { el.textContent = el.getAttribute('data-' + currentLang); });
+  }
+  const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

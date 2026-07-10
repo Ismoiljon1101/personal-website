@@ -33,3 +33,6 @@ Thumbs.db
 # /public/meditech.mp4
 # /public/meditech-preview.mp4
 analytics.json
+
+# Runtime admin-panel content (generated via /admin, not source)
+src/data/dynamic.json

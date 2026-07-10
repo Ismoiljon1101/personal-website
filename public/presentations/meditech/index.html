@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MediTech — Project Presentation</title>
+<style>
+  :root {
+    --accent: #00c4a0;
+    --accent2: #007aff;
+    --bg: #0a0f1e;
+    --card: #111827;
+    --text: #f0f4ff;
+    --muted: #8b9bc8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── LANG TOGGLE ── */
+  #lang-toggle {
+    position: fixed; top: 1.2rem; right: 1.5rem; z-index: 100;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+    color: var(--text); padding: .4rem 1rem; border-radius: 999px;
+    cursor: pointer; font-size: .85rem; font-weight: 600;
+    backdrop-filter: blur(8px); transition: background .2s;
+  }
+  #lang-toggle:hover { background: rgba(255,255,255,.15); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 2rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,196,160,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .pill {
+    display: inline-block;
+    background: rgba(0,196,160,.15); border: 1px solid rgba(0,196,160,.4);
+    color: var(--accent); padding: .4rem 1.2rem; border-radius: 999px;
+    font-size: .85rem; font-weight: 600; letter-spacing: .05em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp .6s ease both;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    font-weight: 800; line-height: 1.05;
+    background: linear-gradient(135deg, #fff 40%, var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: fadeUp .7s .1s ease both;
+  }
+  .hero p {
+    max-width: 600px; margin: 1.5rem auto 0;
+    color: var(--muted); font-size: 1.1rem; line-height: 1.7;
+    animation: fadeUp .7s .2s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp .7s .3s ease both;
+  }
+  .btn {
+    padding: .75rem 2rem; border-radius: 999px; font-weight: 700;
+    font-size: .95rem; cursor: pointer; text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+    display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; box-shadow: 0 4px 24px rgba(0,196,160,.35);
+  }
+  .btn-ghost {
+    background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15); color: var(--text);
+  }
+
+  /* ── GRID DOTS BG ── */
+  .grid-bg {
+    position: absolute; inset: 0; opacity: .06;
+    background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 1.5rem; max-width: 900px; margin: 0 auto; }
+  .section-label {
+    font-size: .8rem; font-weight: 700; letter-spacing: .12em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 1rem;
+  }
+  h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.15; }
+  .subtitle { color: var(--muted); margin-top: .75rem; font-size: 1rem; line-height: 1.7; }
+
+  /* ── STATS ── */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 1rem; margin-top: 3rem; }
+  .stat {
+    background: var(--card); border: 1px solid rgba(255,255,255,.07); border-radius: 1rem;
+    padding: 1.5rem; text-align: center; transition: transform .2s, box-shadow .2s;
+  }
+  .stat:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,196,160,.12); }
+  .stat-num { font-size: 2.2rem; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: .8rem; color: var(--muted); margin-top: .25rem; }
+
+  /* ── FEATURES ── */
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.25rem; margin-top: 3rem; }
+  .feat {
+    background: var(--card); border: 1px solid rgba(255,255,255,.07); border-radius: 1.25rem;
+    padding: 1.75rem; transition: transform .2s, border-color .2s;
+  }
+  .feat:hover { transform: translateY(-4px); border-color: rgba(0,196,160,.3); }
+  .feat-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .feat h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; }
+  .feat p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+  /* ── TECH STACK ── */
+  .tech-grid { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 2rem; }
+  .tag {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    padding: .4rem 1rem; border-radius: 999px; font-size: .85rem; font-weight: 500;
+    transition: background .2s, border-color .2s;
+  }
+  .tag:hover { background: rgba(0,196,160,.12); border-color: rgba(0,196,160,.4); color: var(--accent); }
+
+  /* ── TIMELINE ── */
+  .timeline { margin-top: 3rem; position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,.08); }
+  .tl-item { margin-bottom: 2.5rem; position: relative; }
+  .tl-dot {
+    position: absolute; left: -2rem; top: .25rem;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 0 4px rgba(0,196,160,.2);
+  }
+  .tl-date { font-size: .8rem; color: var(--muted); font-weight: 600; margin-bottom: .3rem; }
+  .tl-title { font-weight: 700; font-size: 1rem; margin-bottom: .3rem; }
+  .tl-desc { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 3rem 1.5rem;
+    color: var(--muted); font-size: .85rem; border-top: 1px solid rgba(255,255,255,.06);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 99px; }
+</style>
+</head>
+<body>
+
+<button id="lang-toggle" onclick="toggleLang()">한국어</button>
+<div class="grid-bg"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="pill" data-en="Healthcare Tech Platform" data-ko="의료 기술 플랫폼">Healthcare Tech Platform</div>
+  <h1>MediTech</h1>
+  <p data-en="A production-grade monorepo healthcare platform with real-time chat, multi-role auth, AI-enabled search, and full DevOps deployment."
+     data-ko="실시간 채팅, 멀티 역할 인증, AI 검색, 완전한 DevOps 배포를 갖춘 프로덕션급 모노레포 헬스케어 플랫폼.">
+    A production-grade monorepo healthcare platform with real-time chat, multi-role auth, AI-enabled search, and full DevOps deployment.
+  </p>
+  <div class="hero-btns">
+    <a href="https://meditech.ismaildev.uz" class="btn btn-primary" target="_blank">🌐 <span data-en="Live Demo" data-ko="라이브 데모">Live Demo</span></a>
+    <a href="/" class="btn btn-ghost">← <span data-en="Back to Portfolio" data-ko="포트폴리오로">Back to Portfolio</span></a>
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="reveal">
+  <div class="section-label" data-en="Impact" data-ko="성과">Impact</div>
+  <h2 data-en="Built for Production Scale" data-ko="프로덕션 규모로 구축">Built for Production Scale</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">~60%</div><div class="stat-label" data-en="DB query reduction via caching" data-ko="캐싱으로 DB 쿼리 절감">DB query reduction via caching</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label" data-en="Microservices (API, Batch, Crawler)" data-ko="마이크로서비스 (API, 배치, 크롤러)">Microservices</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label" data-en="User Roles (Customer/Agent/Admin)" data-ko="사용자 역할 (고객/에이전트/관리자)">User Roles</div></div>
+    <div class="stat"><div class="stat-num">RT</div><div class="stat-label" data-en="Real-time Chat via WebSockets" data-ko="WebSocket 실시간 채팅">Real-time Chat</div></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="reveal">
+  <div class="section-label" data-en="Features" data-ko="주요 기능">Features</div>
+  <h2 data-en="Everything a Healthcare Platform Needs" data-ko="헬스케어 플랫폼에 필요한 모든 것">Everything a Healthcare Platform Needs</h2>
+  <div class="features">
+    <div class="feat"><div class="feat-icon">💬</div><h3 data-en="Real-time Chat" data-ko="실시간 채팅">Real-time Chat</h3><p data-en="WebSocket/Socket.IO powered live messaging between customers and agents." data-ko="WebSocket/Socket.IO 기반 실시간 메시징.">WebSocket/Socket.IO powered live messaging between customers and agents.</p></div>
+    <div class="feat"><div class="feat-icon">🔐</div><h3 data-en="JWT Auth & Roles" data-ko="JWT 인증 및 역할">JWT Auth & Roles</h3><p data-en="Secure JWT authentication with customer, agent, and admin role separation." data-ko="고객, 에이전트, 관리자 역할이 분리된 JWT 인증.">Secure JWT authentication with role separation.</p></div>
+    <div class="feat"><div class="feat-icon">⚡</div><h3 data-en="Dual API: GraphQL & REST" data-ko="이중 API: GraphQL & REST">Dual API</h3><p data-en="NestJS backend exposes both GraphQL and REST endpoints for maximum flexibility." data-ko="GraphQL과 REST 엔드포인트를 동시에 제공하는 NestJS 백엔드.">NestJS backend exposes both GraphQL and REST.</p></div>
+    <div class="feat"><div class="feat-icon">🤖</div><h3 data-en="Batch Jobs & Crawler" data-ko="배치 작업 및 크롤러">Batch Jobs & Crawler</h3><p data-en="Automated background services for data crawling and batch processing tasks." data-ko="데이터 크롤링 및 배치 처리를 위한 자동화 백그라운드 서비스.">Automated background services for data crawling.</p></div>
+    <div class="feat"><div class="feat-icon">❤️</div><h3 data-en="Engagement Features" data-ko="참여 기능">Engagement Features</h3><p data-en="Likes, one-time view tracking, agent product uploads, community boards." data-ko="좋아요, 단일 조회 추적, 에이전트 제품 업로드, 커뮤니티 게시판.">Likes, view tracking, community boards.</p></div>
+    <div class="feat"><div class="feat-icon">🚀</div><h3 data-en="DevOps: Docker + Nginx + PM2" data-ko="DevOps: Docker + Nginx + PM2">DevOps</h3><p data-en="Fully containerized deployment with Nginx reverse proxy and PM2 process management." data-ko="Nginx 역방향 프록시와 PM2 프로세스 관리를 포함한 완전 컨테이너화 배포.">Containerized with Nginx and PM2.</p></div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="reveal">
+  <div class="section-label" data-en="Technology" data-ko="기술">Technology</div>
+  <h2 data-en="Tech Stack" data-ko="기술 스택">Tech Stack</h2>
+  <div class="tech-grid">
+    <span class="tag">NestJS</span><span class="tag">GraphQL</span><span class="tag">REST API</span>
+    <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">MongoDB</span>
+    <span class="tag">Mongoose</span><span class="tag">Socket.IO</span><span class="tag">WebSockets</span>
+    <span class="tag">JWT</span><span class="tag">Docker</span><span class="tag">Nginx</span><span class="tag">PM2</span>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="reveal">
+  <div class="section-label" data-en="Journey" data-ko="개발 여정">Journey</div>
+  <h2 data-en="Development Timeline" data-ko="개발 타임라인">Development Timeline</h2>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Aug 2024</div><div class="tl-title" data-en="Project Kickoff" data-ko="프로젝트 시작">Project Kickoff</div><div class="tl-desc" data-en="Defined monorepo architecture, selected NestJS + MongoDB + Next.js stack." data-ko="모노레포 아키텍처 정의, NestJS + MongoDB + Next.js 스택 선정.">Defined monorepo architecture and tech stack.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Sep 2024</div><div class="tl-title" data-en="Core Backend Built" data-ko="핵심 백엔드 구축">Core Backend Built</div><div class="tl-desc" data-en="GraphQL + REST APIs, JWT auth, MongoDB schema design, caching layer." data-ko="GraphQL + REST API, JWT 인증, MongoDB 스키마 설계, 캐싱 레이어.">APIs, auth, and caching implemented.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Nov 2024</div><div class="tl-title" data-en="Real-time Features" data-ko="실시간 기능 추가">Real-time Features</div><div class="tl-desc" data-en="Integrated Socket.IO for live chat, likes, and one-time view tracking." data-ko="실시간 채팅, 좋아요, 단일 조회 추적을 위한 Socket.IO 통합.">Socket.IO chat and engagement features.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Jan 2025</div><div class="tl-title" data-en="Production Deployment" data-ko="프로덕션 배포">Production Deployment</div><div class="tl-desc" data-en="Docker containerization, Nginx configuration, PM2 process management, live." data-ko="Docker 컨테이너화, Nginx 구성, PM2 프로세스 관리, 라이브 서비스 시작.">Deployed live with full DevOps pipeline.</div></div>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <a href="https://ismaildev.uz">Ismoiljon Masharipov</a> · <a href="https://meditech.ismaildev.uz" target="_blank">meditech.ismaildev.uz</a></p>
+  <p style="margin-top:.5rem"><a href="/">← Back to portfolio</a></p>
+</footer>
+
+<script>
+  let currentLang = 'en';
+  function toggleLang() {
+    currentLang = currentLang === 'en' ? 'ko' : 'en';
+    document.getElementById('lang-toggle').textContent = currentLang === 'en' ? '한국어' : 'English';
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = el.getAttribute('data-' + currentLang);
+    });
+  }
+
+  // Intersection Observer for reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

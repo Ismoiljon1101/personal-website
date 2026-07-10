@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon } from "lucide-react";
+import { BriefcaseIcon, CodeIcon, HomeIcon, NotebookIcon } from "lucide-react";
 
 export const DATA = {
   name: "Ismoiljon Masharipov",
@@ -49,8 +49,63 @@ export const DATA = {
     "LLM Integrations",
     "IoT",
   ],
+  skillGroups: [
+    {
+      title: "Languages",
+      titleKo: "언어",
+      skills: ["TypeScript", "JavaScript", "C#", "Python", "SQL"],
+    },
+    {
+      title: "Backend",
+      titleKo: "백엔드",
+      skills: [
+        "NestJS",
+        "Node.js",
+        "Express.js",
+        "ASP.NET Core",
+        ".NET",
+        "Entity Framework",
+        "FastAPI",
+        "REST APIs",
+        "GraphQL",
+        "WebSockets",
+        "Microservices",
+      ],
+    },
+    {
+      title: "Frontend",
+      titleKo: "프론트엔드",
+      skills: ["React", "Next.js", "Angular", "React Native"],
+    },
+    {
+      title: "Databases",
+      titleKo: "데이터베이스",
+      skills: ["PostgreSQL", "MongoDB", "Redis", "SQL Server"],
+    },
+    {
+      title: "Cloud & DevOps",
+      titleKo: "클라우드 & DevOps",
+      skills: [
+        "AWS",
+        "Azure",
+        "Docker",
+        "GitHub Actions",
+        "Linux",
+        "Nginx",
+        "Cloudflare",
+        "PM2",
+      ],
+    },
+    {
+      title: "AI & Other",
+      titleKo: "AI & 기타",
+      skills: ["RAG", "LLM Integrations", "IoT"],
+    },
+  ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
+    { href: "/#work", icon: BriefcaseIcon, label: "Experience" },
+    { href: "/#projects", icon: CodeIcon, label: "Projects" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
   ],
   contact: {

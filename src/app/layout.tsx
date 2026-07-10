@@ -1,6 +1,3 @@
-import { AuroraBackground } from "@/components/aurora-background";
-import { CustomCursor } from "@/components/cursor";
-import { GlobalStarfield } from "@/components/global-starfield";
 import { LanguageProvider } from "@/components/language-provider";
 import Navbar from "@/components/navbar";
 import { ScrollProgress } from "@/components/scroll-progress";
@@ -10,12 +7,18 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Inter as FontSans, Newsreader } from "next/font/google";
 import "./globals.css";
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
+});
+
+const fontSerif = Newsreader({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-serif",
 });
 
 export const metadata: Metadata = {
@@ -63,18 +66,16 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto py-12 sm:py-24 px-6",
-          fontSans.variable
+          "min-h-screen bg-background font-sans antialiased max-w-3xl mx-auto py-12 sm:py-20 px-6",
+          fontSans.variable,
+          fontSerif.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
-          <GlobalStarfield />
-          <AuroraBackground />
           <VisitTracker />
           <LanguageProvider>
             <TooltipProvider delayDuration={0}>
               <ScrollProgress />
-              <CustomCursor />
               {children}
               <Navbar />
             </TooltipProvider>
