@@ -252,7 +252,7 @@ export const DATA = {
         },
         {
           type: "Presentation",
-          href: "/presentations/meditech/",
+          href: "/presentations/meditech/index.html",
           icon: <Icons.globe className="size-3" />,
         },
       ],
@@ -294,7 +294,7 @@ export const DATA = {
       technologies: ["NestJS", "TypeScript", "MongoDB", "WebSockets", "JWT", "Google OAuth", "Next.js", "Nginx", "PM2"],
       links: [
         { type: "Website", href: "https://tabletap.ismaildev.uz", icon: <Icons.globe className="size-3" /> },
-        { type: "Presentation", href: "/presentations/tabletap/", icon: <Icons.globe className="size-3" /> },
+        { type: "Presentation", href: "/presentations/tabletap/index.html", icon: <Icons.globe className="size-3" /> },
       ],
       image: "",
       video: ""
@@ -331,7 +331,7 @@ export const DATA = {
       description:
         "Production multi-vendor e-commerce platform supporting customer ordering, vendor management, and role-based access controls. Built backend services with NestJS and customer-facing applications with Next.js and Progressive Web App technologies. Deployed on cloud-hosted architecture utilizing Cloudflare and PM2.",
       technologies: ["NestJS", "Next.js", "TypeScript", "MongoDB", "PWA", "Cloudflare", "PM2", "Docker"],
-      links: [{ type: "Presentation", href: "/presentations/pasarhalal/", icon: <Icons.globe className="size-3" /> }],
+      links: [{ type: "Presentation", href: "/presentations/pasarhalal/index.html", icon: <Icons.globe className="size-3" /> }],
       image: "",
       video: ""
     },
